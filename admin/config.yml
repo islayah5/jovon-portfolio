@@ -2,14 +2,10 @@ backend:
   name: git-gateway
   branch: main
 
-# Uncomment this for local development testing
-# local_backend: true
-
 media_folder: "assets/images"
 public_folder: "/assets/images"
 
 collections:
-  # Gallery Projects Collection
   - name: "projects"
     label: "Gallery Projects"
     label_singular: "Project"
@@ -17,57 +13,11 @@ collections:
     create: true
     slug: "{{year}}-{{slug}}"
     fields:
-      - {label: "Project Title", name: "title", widget: "string", hint: "e.g., 'Luxury Wedding Film: The Andersons'"}
+      - {label: "Project Title", name: "title", widget: "string"}
       - {label: "Category", name: "category", widget: "select", options: ["commercial", "narrative", "events", "music", "bts"]}
       - {label: "Type", name: "type", widget: "select", options: ["video", "image"], default: "video"}
-      - {label: "Video/Image File", name: "src", widget: "string", hint: "Video file name, Vimeo URL, or YouTube embed URL"}
+      - {label: "Video/Image Source", name: "src", widget: "string"}
       - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
-      - {label: "Description", name: "description", widget: "text", hint: "1-2 sentences about this project"}
-      - label: "Tech Stack"
-        name: "tech"
-        widget: "list"
-        hint: "Add items like 'Sony A7III', 'Premiere Pro', 'DaVinci Resolve'"
-        field: {label: "Item", name: "item", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Tech Stack", name: "tech", widget: "list"}
       - {label: "Year", name: "year", widget: "string", default: "2024"}
-      - {label: "Featured", name: "featured", widget: "boolean", default: false, required: false}
-
-  # Site Settings Collection
-  - name: "settings"
-    label: "Site Settings"
-    files:
-      - label: "Contact Information"
-        name: "contact"
-        file: "_data/contact.json"
-        fields:
-          - {label: "Email", name: "email", widget: "string"}
-          - {label: "LinkedIn URL", name: "linkedin", widget: "string", required: false}
-          - {label: "Instagram URL", name: "instagram", widget: "string", required: false}
-          - {label: "Vimeo URL", name: "vimeo", widget: "string", required: false}
-          - {label: "Resume/Portfolio PDF", name: "resume", widget: "string", required: false}
-      
-      - label: "About Section"
-        name: "about"
-        file: "_data/about.json"
-        fields:
-          - {label: "Background Paragraph", name: "background", widget: "text", hint: "2-3 sentences about your journey into filmmaking"}
-          - {label: "Philosophy Statement", name: "philosophy", widget: "text", hint: "What drives your creative vision"}
-      
-      - label: "Hero Section"
-        name: "hero"
-        file: "_data/hero.json"
-        fields:
-          - {label: "Name", name: "name", widget: "string", default: "Jovon King"}
-          - {label: "Title", name: "title", widget: "string", default: "Video Editor & Filmmaker"}
-          - {label: "Tagline", name: "tagline", widget: "text"}
-          - {label: "Headshot Image", name: "headshot", widget: "image"}
-
-# Enable editor workflow (draft/review/ready states)
-publish_mode: editorial_workflow
-
-# Optional: Configure the media library
-media_library:
-  name: uploadcare
-  config:
-    publicKey: YOUR_UPLOADCARE_PUBLIC_KEY
-    multiple: false
-    tabs: 'file camera url'
