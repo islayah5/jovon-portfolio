@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isaiah Chandler | Strategic Brand Manager</title>
-    
+    <title>Jovon King | Video Editor & Filmmaker</title>
+
     <!-- Dynamic Favicon Link (Updated via JS) -->
-    <link id="favicon" rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABY6HEcAAAAAXNSR0IArs4c6QAAAHBJREFUWIXtltsNgCAQRc/7N+01n9yEaD+WzDqg/y+Q1qS9pE4VAGB0YdY8l24lC1YfA+j/eH6Fk48y4FvBqg02x+QhLgBYk62j9gYAuVj2i640Wb/5E0G/A26C3B9m3E4p3gXgOQ1f/dG8B+DcgN/8P/QvgDwA3A/wH3A/sB5f911956f4e6AAAAAElFTkSuQmCC">
+    <link id="favicon" rel="icon" type="image/png"
+        href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABY6HEcAAAAAXNSR0IArs4c6QAAAHBJREFUWIXtltsNgCAQRc/7N+01n9yEaD+WzDqg/y+Q1qS9pE4VAGB0YdY8l24lC1YfA+j/eH6Fk48y4FvBqg02x+QhLgBYk62j9gYAuVj2i640Wb/5E0G/A26C3B9m3E4p3gXgOQ1f/dG8B+DcgN/8P/QvgDwA3A/wH3A/sB5f911956f4e6AAAAAElFTkSuQmCC">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        deep: '#020408',     /* Absolute Void Navy */
-                        surface: '#0b1221',  /* Executive Navy */
-                        gold: '#c5a059',     /* Champagne Gold */
-                        goldlight: '#e6c888',
-                        text: '#e2e8f0',     /* Soft White */
+                        deep: '#0f172a',     /* Deep Navy Background */
+                        surface: '#1e293b',  /* Slate Surface */
+                        blue: '#3b82f6',     /* Vibrant Blue (Primary) */
+                        bluelight: '#60a5fa', /* Light Blue (Accents) */
+                        bluedark: '#1e3a8a', /* Royal Academic Blue */
+                        slate: '#334155',    /* Professional Slate */
+                        text: '#f1f5f9',     /* Soft White */
                         muted: '#64748b'     /* Slate 500 */
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Outfit', 'sans-serif'],
+                        serif: ['Space Grotesk', 'sans-serif'],
                     },
                     animation: {
                         'blob': 'blob 7s infinite',
@@ -45,190 +52,97 @@
     </script>
 
     <style>
-        body {
-            background-color: #020408;
-            color: #e2e8f0;
-            overflow-x: hidden;
+        /* Minimal inline styles - most styles moved to external CSS */
+        .serif-font {
+            font-family: 'Space Grotesk', sans-serif;
         }
-
-        /* --- "Spotlight" Card Effect --- */
-        .spotlight-card {
-            background: rgba(11, 18, 33, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        
-        .spotlight-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(197, 160, 89, 0.06), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .spotlight-card:hover::before {
-            opacity: 1;
-        }
-
-        .spotlight-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(197, 160, 89, 0.3);
-        }
-
-        /* --- Luxury Typography --- */
-        .text-gradient-gold {
-            background: linear-gradient(135deg, #e6c888 0%, #c5a059 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* --- Navigation --- */
-        .nav-pill {
-            background: rgba(2, 4, 8, 0.8);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        /* --- Primary Button --- */
-        .btn-gold {
-            background: linear-gradient(135deg, #c5a059 0%, #b08d55 100%);
-            color: #020408;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(197, 160, 89, 0.15);
-        }
-        .btn-gold:hover {
-            box-shadow: 0 4px 30px rgba(197, 160, 89, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* --- Reveal Animations --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Gallery Improvements */
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.75rem; /* Rounded corners */
-            background-color: #0b1221; /* Fallback color */
-            aspect-ratio: 16 / 9; /* Enforce consistent aspect ratio for uniformity */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .gallery-item img, 
-        .gallery-item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Default: fills the box */
-            object-position: center; 
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Special class for items that need to be fully visible (like documents) */
-        .gallery-item.contain-image img {
-            object-fit: contain; /* Ensures the whole image is visible */
-            background-color: #0f172a; /* Dark background for empty space */
-            padding: 1rem; /* Slight padding so it doesn't touch edges */
-        }
-
-        .gallery-item:hover img, 
-        .gallery-item:hover video {
-            transform: scale(1.05); 
-        }
-
-        .gallery-overlay {
-            background: linear-gradient(to top, rgba(2, 4, 8, 0.95) 0%, rgba(2, 4, 8, 0.6) 50%, transparent 100%);
-        }
-
-        /* Lightbox Styles */
-        #lightbox {
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        #lightbox.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        #lightbox video, #lightbox img {
-            max-height: 85vh;
-            max-width: 90vw;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            border-radius: 8px;
-        }
-
     </style>
 </head>
-<body class="antialiased selection:bg-gold selection:text-deep" onmousemove="handleMouseMove(event)">
+
+<body class="antialiased selection:bg-blue selection:text-deep" onmousemove="handleMouseMove(event)">
+
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-logo"></div>
+    </div>
 
     <!-- Hidden Canvas used for generating the animated Favicon -->
     <canvas id="faviconCanvas" width="32" height="32" class="hidden" style="display: none;"></canvas>
 
     <!-- Ambient Background -->
     <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-gold/5 rounded-full blur-[100px] animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-surface/50 rounded-full blur-[100px] animate-blob animation-delay-2000"></div>
-        <div class="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-gold/3 rounded-full blur-[120px] animate-blob animation-delay-4000"></div>
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-gold/5 rounded-full blur-[100px] animate-blob">
+        </div>
+        <div
+            class="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-surface/50 rounded-full blur-[100px] animate-blob animation-delay-2000">
+        </div>
+        <div
+            class="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-gold/3 rounded-full blur-[120px] animate-blob animation-delay-4000">
+        </div>
     </div>
 
     <!-- Navigation -->
     <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-lg">
         <div class="nav-pill rounded-full px-1.5 py-1.5 flex justify-between items-center shadow-2xl">
-            <a href="#home" class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">HOME</a>
-            <a href="#about" class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">ABOUT</a>
-            <a href="#capabilities" class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">SKILLS</a>
-            <a href="#work" class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">WORK</a>
-            <a href="mailto:isaiahchandler5@gmail.com" class="px-5 py-2 rounded-full text-xs font-bold tracking-wide bg-gold text-deep hover:bg-white transition-colors">CONTACT</a>
+            <a href="#home"
+                class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">HOME</a>
+            <a href="#about"
+                class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">ABOUT</a>
+            <a href="#capabilities"
+                class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">SKILLS</a>
+            <a href="#work"
+                class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">WORK</a>
+            <a href="mailto:jovon@example.com"
+                class="px-5 py-2 rounded-full text-xs font-bold tracking-wide bg-blue text-deep hover:bg-white transition-colors">CONTACT</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 relative pt-20">
-        
+
         <!-- Animated Avatar Ring -->
         <div class="mb-10 relative group reveal">
-            <div class="absolute -inset-0.5 bg-gradient-to-tr from-gold/40 to-surface/0 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-700"></div>
+            <div
+                class="absolute -inset-0.5 bg-gradient-to-tr from-blue/40 to-surface/0 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-700">
+            </div>
             <div class="relative w-40 h-40 rounded-full overflow-hidden border border-white/10 shadow-2xl">
-                <!-- Using local file name directly -->
-                <img src="IC–Headshot.PNG" 
-                     alt="Isaiah Chandler" 
-                     class="w-full h-full object-cover filter brightness-110 contrast-110">
+                <!-- [REPLACE: JOVON_KING_HEADSHOT.jpg - Professional headshot, 1:1 ratio, min 800x800px] -->
+                <img src="[PLACEHOLDER_HEADSHOT.jpg]" alt="Jovon King"
+                    class="w-full h-full object-cover filter brightness-110 contrast-110">
             </div>
         </div>
 
         <!-- Main Typography -->
         <div class="reveal delay-100">
-            <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight leading-tight">
-                <span class="text-white">Isaiah</span> <span class="text-gradient-gold serif-font italic">Chandler</span>
+            <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tight leading-none">
+                <span class="text-white font-sans">JOVON</span> <br class="md:hidden">
+                <span class="text-gradient-blue serif-font font-bold tracking-wide">KING</span>
             </h1>
-            <div class="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 opacity-50"></div>
+            <div class="h-1 w-32 bg-gradient-to-r from-transparent via-blue to-transparent mx-auto mb-8 opacity-70">
+            </div>
         </div>
-        
+
         <!-- Professional Subtitle -->
-        <p class="text-lg md:text-xl text-muted font-light tracking-wide max-w-2xl mx-auto mb-10 reveal delay-200">
-            Brand Strategy & Revenue Operations.<br>
-            <span class="text-text/80">Scaling growth through data-driven precision and rapid execution.</span>
+        <!-- [REPLACE: Update with your tagline about video storytelling and filmmaking] -->
+        <p
+            class="text-xl md:text-2xl text-text font-medium tracking-wide max-w-3xl mx-auto mb-4 reveal delay-200 leading-relaxed">
+            <span class="text-blue font-semibold">Video Editor & Filmmaker</span>
+        </p>
+        <p
+            class="text-base md:text-lg text-muted font-normal tracking-wide max-w-2xl mx-auto mb-12 reveal delay-250 leading-relaxed">
+            Crafting visual stories that captivate, inspire, and leave lasting impressions.
         </p>
 
         <!-- CTA Actions -->
         <div class="flex flex-col sm:flex-row gap-5 reveal delay-300">
-            <a href="#work" class="btn-gold px-8 py-3.5 rounded-full text-xs tracking-widest uppercase">
-                View Selected Work
+            <a href="#work" class="btn-blue px-8 py-3.5 rounded-full text-xs tracking-widest uppercase">
+                View My Reels
             </a>
-            <a href="https://docs.google.com/document/d/1MQ6gHrFDmRJ9moEIwyv7gDQFMT-ywIhIKomsEEyfAiM/edit?usp=sharing" target="_blank" class="px-8 py-3.5 rounded-full text-xs tracking-widest uppercase border border-white/10 hover:border-gold/50 hover:text-gold transition-colors text-slate-300 bg-surface/50 backdrop-blur-sm">
-                Access Resume
+            <!-- [REPLACE: Update href with your resume/portfolio PDF link] -->
+            <a href="#" target="_blank"
+                class="px-8 py-3.5 rounded-full text-xs tracking-widest uppercase border border-white/10 hover:border-blue/50 hover:text-blue transition-colors text-slate-300 bg-surface/50 backdrop-blur-sm">
+                Download Resume
             </a>
         </div>
 
@@ -242,56 +156,67 @@
     <section id="about" class="py-32 px-6 border-t border-white/5 bg-surface/20">
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-                
+
                 <!-- Left: The Narrative -->
+                <!-- [REPLACE: Update background and philosophy sections below] -->
                 <div class="lg:col-span-7 reveal">
-                    <h2 class="text-xs font-bold text-gold uppercase tracking-[0.2em] mb-4">The Advantage</h2>
-                    <h3 class="text-3xl md:text-5xl font-bold mb-8 leading-tight">
-                        Bridging the gap between <br>
-                        <span class="text-white">High-Level Strategy</span> <br>
-                        & <span class="serif-font italic text-gradient-gold">Rapid Deployment.</span>
+                    <h2 class="text-sm font-black text-blue uppercase tracking-[0.3em] mb-6">The Storyteller</h2>
+                    <h3 class="text-4xl md:text-6xl font-black mb-10 leading-tight tracking-tight">
+                        Where technical precision meets <br>
+                        <span class="text-white font-sans">Creative Vision</span> <br>
+                        & <span class="serif-font font-bold text-gradient-blue">Emotional Impact.</span>
                     </h3>
-                    <div class="space-y-6 text-muted text-lg font-light leading-relaxed">
+                    <div class="space-y-6 text-text/70 text-lg font-normal leading-loose">
+                        <!-- [PLACEHOLDER: BACKGROUND_PARAGRAPH - 2-3 sentences about your journey into filmmaking] -->
                         <p>
-                            In modern marketing, speed is currency. I eliminate the friction between creative strategy and technical implementation. 
+                            Every frame tells a story. With years of experience in visual storytelling, I transform
+                            raw footage into compelling narratives that resonate deeply with audiences.
                         </p>
+                        <!-- [PLACEHOLDER: PHILOSOPHY_STATEMENT - What drives your creative vision] -->
                         <p>
-                            By possessing the technical fluency to architect my own campaigns, automations, and assets, I reduce dependency on external resources and accelerate time-to-market for high-impact initiatives.
+                            Whether it's a commercial that needs to convert, a wedding that deserves to be immortalized,
+                            or a documentary that demands authenticity—I bring the same dedication to craft and emotion.
                         </p>
                     </div>
                 </div>
 
                 <!-- Right: The Metrics (Glass Card) -->
                 <div class="lg:col-span-5 reveal delay-200">
-                    <div class="spotlight-card rounded-2xl p-8 md:p-10 bg-deep/50 backdrop-blur-xl border border-white/5 shadow-2xl">
+                    <div
+                        class="spotlight-card rounded-2xl p-8 md:p-10 bg-deep/50 backdrop-blur-xl border border-white/5 shadow-2xl">
                         <div class="grid grid-cols-1 gap-8">
                             <div class="flex items-center gap-5">
-                                <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
-                                    <i class="fas fa-chart-line"></i>
+                                <div
+                                    class="w-12 h-12 rounded-full bg-blue/10 flex items-center justify-center text-blue border border-blue/20">
+                                    <i class="fas fa-film"></i>
                                 </div>
                                 <div>
-                                    <div class="text-2xl font-bold text-white">Revenue Impact</div>
-                                    <div class="text-xs text-muted uppercase tracking-widest">High-Velocity Sales Pipeline</div>
+                                    <div class="text-2xl font-bold text-white">Visual Impact</div>
+                                    <div class="text-xs text-muted uppercase tracking-widest">Cinematic Quality
+                                        Guaranteed</div>
                                 </div>
                             </div>
                             <div class="h-px bg-white/5 w-full"></div>
                             <div class="flex items-center gap-5">
-                                <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
-                                    <i class="fas fa-mouse-pointer"></i>
+                                <div
+                                    class="w-12 h-12 rounded-full bg-blue/10 flex items-center justify-center text-blue border border-blue/20">
+                                    <i class="fas fa-video"></i>
                                 </div>
                                 <div>
-                                    <div class="text-2xl font-bold text-white">Engagement</div>
-                                    <div class="text-xs text-muted uppercase tracking-widest">Market-Leading CTR</div>
+                                    <div class="text-2xl font-bold text-white">Storytelling</div>
+                                    <div class="text-xs text-muted uppercase tracking-widest">Emotionally Resonant</div>
                                 </div>
                             </div>
                             <div class="h-px bg-white/5 w-full"></div>
                             <div class="flex items-center gap-5">
-                                <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-blue/10 flex items-center justify-center text-blue border border-blue/20">
                                     <i class="fas fa-layer-group"></i>
                                 </div>
                                 <div>
                                     <div class="text-2xl font-bold text-white">Versatility</div>
-                                    <div class="text-xs text-muted uppercase tracking-widest">Multi-Vertical Strategy</div>
+                                    <div class="text-xs text-muted uppercase tracking-widest">Every Genre, Every Style
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -303,66 +228,73 @@
     </section>
 
     <!-- Capabilities Grid (Spotlight Cards) -->
+    <!-- [REPLACE: Update skills below with your specific expertise] -->
     <section id="capabilities" class="py-32 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-20 reveal">
-                <h2 class="text-xs font-bold text-gold uppercase tracking-[0.2em] mb-3">Capabilities</h2>
-                <h3 class="text-3xl md:text-4xl font-bold">The Toolkit</h3>
+                <h2 class="text-sm font-black text-blue uppercase tracking-[0.3em] mb-4">Capabilities</h2>
+                <h3 class="text-4xl md:text-5xl font-black tracking-tight">The Toolkit</h3>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cards-container">
                 <!-- Card 1 -->
                 <div class="spotlight-card rounded-xl p-8 group reveal">
                     <div class="mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
-                        <i class="fas fa-chess-queen text-2xl text-gold"></i>
+                        <i class="fas fa-cut text-2xl text-blue"></i>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-3">Campaign Strategy</h4>
-                    <p class="text-muted text-sm leading-relaxed">Developing full-funnel marketing strategies that align user psychology with strict business KPIs and revenue goals.</p>
+                    <h4 class="text-lg font-bold text-white mb-3">Video Editing</h4>
+                    <p class="text-muted text-sm leading-relaxed">Expert-level editing across Premiere Pro, Final Cut
+                        Pro, and DaVinci Resolve for narrative pacing and visual flow.</p>
                 </div>
 
                 <!-- Card 2 -->
                 <div class="spotlight-card rounded-xl p-8 group reveal delay-100">
                     <div class="mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
-                        <i class="fas fa-rocket text-2xl text-gold"></i>
+                        <i class="fas fa-palette text-2xl text-blue"></i>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-3">Rapid Deployment</h4>
-                    <p class="text-muted text-sm leading-relaxed">Leveraging technical skills to build interactive assets and automate workflows, bypassing traditional production bottlenecks.</p>
+                    <h4 class="text-lg font-bold text-white mb-3">Color Grading</h4>
+                    <p class="text-muted text-sm leading-relaxed">Cinematic color correction and grading to establish
+                        mood, atmosphere, and visual consistency across every project.</p>
                 </div>
 
                 <!-- Card 3 -->
                 <div class="spotlight-card rounded-xl p-8 group reveal delay-200">
                     <div class="mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
-                        <i class="fas fa-microchip text-2xl text-gold"></i>
+                        <i class="fas fa-wand-magic-sparkles text-2xl text-blue"></i>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-3">AI Integration</h4>
-                    <p class="text-muted text-sm leading-relaxed">Expert prompting and integration of GenAI tools (Gemini, ChatGPT) to scale content production and operational efficiency.</p>
+                    <h4 class="text-lg font-bold text-white mb-3">Motion Graphics</h4>
+                    <p class="text-muted text-sm leading-relaxed">Creating dynamic titles, transitions, and effects in
+                        After Effects that elevate production value.</p>
                 </div>
 
                 <!-- Card 4 -->
                 <div class="spotlight-card rounded-xl p-8 group reveal">
                     <div class="mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
-                        <i class="fas fa-chart-pie text-2xl text-gold"></i>
+                        <i class="fas fa-microphone text-2xl text-blue"></i>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-3">Data Analysis</h4>
-                    <p class="text-muted text-sm leading-relaxed">Turning raw data and discovery into actionable narrative insights that drive decision making.</p>
+                    <h4 class="text-lg font-bold text-white mb-3">Sound Design</h4>
+                    <p class="text-muted text-sm leading-relaxed">Professional audio mixing, dialogue editing, and sound
+                        effects integration for immersive experiences.</p>
                 </div>
 
                 <!-- Card 5 -->
                 <div class="spotlight-card rounded-xl p-8 group reveal delay-100">
                     <div class="mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
-                        <i class="fas fa-pen-nib text-2xl text-gold"></i>
+                        <i class="fas fa-camera text-2xl text-blue"></i>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-3">Copy & Messaging</h4>
-                    <p class="text-muted text-sm leading-relaxed">Writing persuasive, brand-aligned copy for emails, landing pages, and pitch decks that actually converts.</p>
+                    <h4 class="text-lg font-bold text-white mb-3">Cinematography</h4>
+                    <p class="text-muted text-sm leading-relaxed">Understanding camera work, lighting, and composition
+                        to capture stunning footage in any environment.</p>
                 </div>
 
                 <!-- Card 6 -->
                 <div class="spotlight-card rounded-xl p-8 group reveal delay-200">
                     <div class="mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
-                        <i class="fas fa-database text-2xl text-gold"></i>
+                        <i class="fas fa-film text-2xl text-blue"></i>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-3">CRM & Project Management</h4>
-                    <p class="text-muted text-sm leading-relaxed">Architecting pipelines and managing data integrity in Salesforce, GoHighLevel, ClickUp, Jira, and Bullhorn for maximum efficiency.</p>
+                    <h4 class="text-lg font-bold text-white mb-3">Complete Production</h4>
+                    <p class="text-muted text-sm leading-relaxed">End-to-end project management from pre-production
+                        planning through final delivery and client collaboration.</p>
                 </div>
             </div>
         </div>
@@ -373,82 +305,23 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
                 <div>
-                    <h2 class="text-xs font-bold text-gold uppercase tracking-[0.2em] mb-3">Selected Work</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold">Featured Projects</h3>
+                    <h2 class="text-sm font-black text-blue uppercase tracking-[0.3em] mb-4">Selected Work</h2>
+                    <h3 class="text-4xl md:text-5xl font-black tracking-tight">Featured Projects</h3>
                 </div>
                 <div class="hidden md:block">
-                    <a href="mailto:isaiahchandler5@gmail.com" class="text-sm font-semibold text-white border-b border-gold pb-1 hover:text-gold transition-colors">Request Full Portfolio</a>
+                    <!-- [REPLACE: Update contact email] -->
+                    <a href="mailto:jovon@example.com"
+                        class="text-sm font-semibold text-white border-b border-blue pb-1 hover:text-blue transition-colors">Request
+                        Full Portfolio</a>
                 </div>
             </div>
 
+            <!-- Gallery Filters -->
+            <div id="gallery-filters" class="gallery-filters reveal"></div>
+
             <!-- Changed grid-cols for better responsiveness with 5 items -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Project 1 (New 3D Event Video) -->
-                <div class="gallery-item group cursor-pointer reveal">
-                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                        <!-- Updated filename to match your repo -->
-                        <source src="3D-SMR_Model.mp4" type="video/mp4">
-                        <div class="absolute inset-0 bg-surface/50 flex items-center justify-center">
-                            <span class="text-muted text-xs">Loading...</span>
-                        </div>
-                    </video>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
-                        <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Spatial Design</p>
-                        <h4 class="text-white text-xl font-bold">3D Event Experience</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="fas fa-expand mr-1"></i> Click to Enlarge</p>
-                    </div>
-                </div>
-
-                <!-- Project 2 (Video Presentation) -->
-                <div class="gallery-item group cursor-pointer reveal delay-100">
-                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                        <!-- Updated filename to match your repo -->
-                        <source src="portfolio-presentation.mp4" type="video/mp4">
-                        <div class="absolute inset-0 bg-surface/50 flex items-center justify-center">
-                            <span class="text-muted text-xs">Loading...</span>
-                        </div>
-                    </video>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
-                        <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Social Strategy</p>
-                        <h4 class="text-white text-xl font-bold">Digital Campaign</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="fas fa-expand mr-1"></i> Click to Enlarge</p>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="gallery-item group cursor-pointer reveal delay-200">
-                    <!-- Assuming file is uploaded; using placeholder if not -->
-                    <img src="https://drive.google.com/thumbnail?id=1trNtW8PMxxg78Snv6YLOnfJ57TT0qun1&sz=w1000" alt="Project 3">
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
-                        <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Local Growth</p>
-                        <h4 class="text-white text-xl font-bold">Bakery Rebrand</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="fas fa-expand mr-1"></i> Click to Enlarge</p>
-                    </div>
-                </div>
-
-                <!-- Project 4 (Print Collateral - Fully Visible) -->
-                <!-- Added 'contain-image' class to ensure the flyer is not cropped -->
-                <div class="gallery-item group cursor-pointer reveal delay-300 contain-image">
-                    <!-- Assuming file is uploaded; using placeholder if not -->
-                    <img src="https://drive.google.com/thumbnail?id=1-2IvZWX88pA9uefB-NZsVNW7nhGAIJyr&sz=w1000" alt="Project 4">
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
-                        <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Graphic Design</p>
-                        <h4 class="text-white text-xl font-bold">Print Collateral</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="fas fa-expand mr-1"></i> Click to Enlarge</p>
-                    </div>
-                </div>
-
-                <!-- Project 5 (Non-Profit Event Promo - Fully Visible) -->
-                <div class="gallery-item group cursor-pointer reveal delay-100 contain-image">
-                    <img src="YES-Maddie.jpg" alt="Non-Profit Event Promo">
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
-                        <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Community Outreach</p>
-                        <h4 class="text-white text-xl font-bold">Non-Profit Event Promo</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="fas fa-expand mr-1"></i> Click to Enlarge</p>
-                    </div>
-                </div>
-
+            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Gallery items will be dynamically generated by JavaScript -->
             </div>
         </div>
     </section>
@@ -456,24 +329,35 @@
     <!-- Footer / Contact -->
     <section class="py-32 px-6 text-center relative">
         <div class="max-w-4xl mx-auto reveal">
-            <a href="mailto:isaiahchandler5@gmail.com" class="btn-gold px-12 py-5 rounded-full text-sm font-bold tracking-widest uppercase inline-block">
-                Start A Conversation
+            <!-- [REPLACE: Update contact email] -->
+            <a href="mailto:jovon@example.com"
+                class="btn-blue px-12 py-5 rounded-full text-sm font-bold tracking-widest uppercase inline-block">
+                Let's Create Together
             </a>
 
             <div class="mt-20 flex justify-center gap-10 opacity-50 hover:opacity-100 transition-opacity duration-500">
-                <a href="https://www.linkedin.com/in/isaiah-chandler/" target="_blank" class="text-white hover:text-gold transition-colors text-2xl"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:isaiahchandler5@gmail.com" class="text-white hover:text-gold transition-colors text-2xl"><i class="fas fa-envelope"></i></a>
+                <!-- [REPLACE: Update social media links] -->
+                <a href="#" target="_blank" class="text-white hover:text-blue transition-colors text-2xl"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="#" target="_blank" class="text-white hover:text-blue transition-colors text-2xl"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" class="text-white hover:text-blue transition-colors text-2xl"><i
+                        class="fab fa-vimeo"></i></a>
+                <a href="mailto:jovon@example.com" class="text-white hover:text-blue transition-colors text-2xl"><i
+                        class="fas fa-envelope"></i></a>
             </div>
-            
+
             <p class="mt-12 text-xs text-muted uppercase tracking-widest">
-                © 2025 Isaiah Chandler.
+                © 2025 Jovon King.
             </p>
         </div>
     </section>
 
     <!-- Lightbox Modal -->
-    <div id="lightbox" class="fixed inset-0 z-[100] bg-deep/95 backdrop-blur-md flex items-center justify-center opacity-0 invisible transition-all duration-300">
-        <div class="absolute top-6 right-6 cursor-pointer text-white hover:text-gold transition-colors p-2" id="lightbox-close">
+    <div id="lightbox"
+        class="fixed inset-0 z-[100] bg-deep/95 backdrop-blur-md flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <div class="absolute top-6 right-6 cursor-pointer text-white hover:text-gold transition-colors p-2"
+            id="lightbox-close">
             <i class="fas fa-times text-2xl"></i>
         </div>
         <div id="lightbox-content" class="relative max-w-[90vw] max-h-[85vh]">
@@ -481,196 +365,10 @@
         </div>
     </div>
 
-    <script>
-        // --- Favicon Animation Logic ---
-        const FAVICON_SIZE = 32;
-        const FPS = 30;
-        const interval = 1000 / FPS;
+    <!-- External Scripts -->
+    <script src="gallery-data.js"></script>
+    <script src="script.js"></script>
 
-        const faviconCanvas = document.getElementById('faviconCanvas');
-        const faviconCtx = faviconCanvas.getContext('2d');
-        const faviconLink = document.getElementById('favicon');
-
-        let lastTime = 0;
-        let rotationAngle = 0;
-        let animationFrameId;
-
-        function drawSentinelGlyph(ctx, size, time) {
-            const centerX = size / 2;
-            const centerY = size / 2;
-            const outerRadius = size * 0.45;
-            const innerRadius = size * 0.15;
-            
-            const pulse = (Math.sin(time * 12) + 1) / 2;
-            const rotationSpeed = (2 * Math.PI) / (FPS * 1.5); 
-
-            rotationAngle += rotationSpeed;
-
-            ctx.clearRect(0, 0, size, size);
-
-            // 1. Outer Glow (Gold)
-            const goldGlow = `rgba(197, 160, 89, ${0.4 + pulse * 0.6})`;
-            ctx.shadowBlur = size * (1.0 + pulse * 0.8);
-            ctx.shadowColor = goldGlow;
-
-            // 2. The Dark Base (Deep Navy)
-            ctx.fillStyle = '#0b1221'; 
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.shadowBlur = 0; 
-
-            // 3. Draw Rotating Glyph Segments
-            const numSegments = 4;
-            const chevronWidth = size * 0.12; 
-            
-            ctx.save();
-            ctx.translate(centerX, centerY);
-            ctx.rotate(rotationAngle);
-            
-            for (let i = 0; i < numSegments; i++) {
-                const angle = (i / numSegments) * Math.PI * 2;
-                
-                ctx.save();
-                ctx.rotate(angle);
-                
-                ctx.beginPath();
-                ctx.moveTo(innerRadius * 1.0, 0); 
-                ctx.lineTo(outerRadius * 0.95, -chevronWidth / 2); 
-                ctx.lineTo(outerRadius * 0.95, chevronWidth / 2); 
-                ctx.closePath(); 
-
-                ctx.fillStyle = `rgba(255, 230, 100, ${0.8 + pulse * 0.2})`; 
-                
-                ctx.shadowBlur = size * 0.3;
-                ctx.shadowColor = `rgba(255, 215, 0, ${0.8})`; 
-                
-                ctx.fill();
-                ctx.restore();
-            }
-
-            ctx.restore();
-
-            // 4. Central Core
-            const coreRadius = innerRadius * 0.8;
-            
-            ctx.shadowBlur = size * 0.2 * (1 + pulse); 
-            ctx.shadowColor = `rgba(255, 255, 255, ${0.5 + pulse * 0.5})`; 
-
-            ctx.fillStyle = '#c5a059'; 
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, coreRadius, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.shadowBlur = 0;
-            ctx.strokeStyle = '#333333'; 
-            ctx.lineWidth = size * 0.01; 
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
-            ctx.stroke();
-        }
-
-        function animateFavicon(timestamp) {
-            animationFrameId = requestAnimationFrame(animateFavicon);
-
-            const elapsed = timestamp - lastTime;
-            if (elapsed > interval) {
-                lastTime = timestamp - (elapsed % interval);
-                const time = timestamp / 1000; 
-
-                // Draw on hidden canvas
-                drawSentinelGlyph(faviconCtx, FAVICON_SIZE, time);
-
-                // Update favicon link
-                faviconLink.href = faviconCanvas.toDataURL('image/png');
-            }
-        }
-
-        // --- Spotlight Effect Logic ---
-        function handleMouseMove(e) {
-            const cards = document.getElementsByClassName("spotlight-card");
-            for(const card of cards) {
-                const rect = card.getBoundingClientRect(),
-                      x = e.clientX - rect.left,
-                      y = e.clientY - rect.top;
-                
-                card.style.setProperty("--mouse-x", `${x}px`);
-                card.style.setProperty("--mouse-y", `${y}px`);
-            };
-        }
-
-        // --- Intersection Observer for Reveals ---
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // --- Lightbox Logic ---
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxContent = document.getElementById('lightbox-content');
-        const lightboxClose = document.getElementById('lightbox-close');
-
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const video = item.querySelector('video');
-                const img = item.querySelector('img');
-                
-                lightboxContent.innerHTML = ''; // Clear previous
-
-                if (video) {
-                    const videoSrc = video.querySelector('source').src;
-                    const newVideo = document.createElement('video');
-                    newVideo.src = videoSrc;
-                    newVideo.controls = true;
-                    newVideo.autoplay = true;
-                    newVideo.classList.add('w-full', 'h-auto', 'max-h-[85vh]', 'rounded-lg');
-                    lightboxContent.appendChild(newVideo);
-                } else if (img) {
-                    const newImg = document.createElement('img');
-                    newImg.src = img.src;
-                    newImg.classList.add('w-auto', 'h-auto', 'max-h-[85vh]', 'rounded-lg', 'object-contain');
-                    lightboxContent.appendChild(newImg);
-                }
-
-                lightbox.classList.remove('invisible', 'opacity-0');
-                lightbox.classList.add('visible', 'opacity-100');
-            });
-        });
-
-        // Close functions
-        const closeLightbox = () => {
-            lightbox.classList.add('invisible', 'opacity-0');
-            lightbox.classList.remove('visible', 'opacity-100');
-            setTimeout(() => { lightboxContent.innerHTML = ''; }, 300); // Clear content after transition
-        };
-
-        lightboxClose.addEventListener('click', closeLightbox);
-        
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !lightbox.classList.contains('invisible')) closeLightbox();
-        });
-
-        // Start favicon animation on load
-        window.onload = function() {
-            animateFavicon(0); 
-        }
-        
-        // Clean up
-        window.onunload = function() {
-            cancelAnimationFrame(animationFrameId);
-        };
-
-    </script>
 </body>
+
 </html>
