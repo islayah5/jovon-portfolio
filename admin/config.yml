@@ -1,23 +1,89 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: islayah5/jovon-portfolio
   branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
+# Media files
 media_folder: "assets/images"
 public_folder: "/assets/images"
 
+# Publish directly (no editorial workflow for simpler UX)
+publish_mode: simple
+
+# ============================================================
+# COLLECTIONS - All editable content
+# ============================================================
+
 collections:
+  # ========================================
+  # GALLERY PROJECTS
+  # ========================================
   - name: "projects"
     label: "Gallery Projects"
     label_singular: "Project"
     folder: "_projects"
     create: true
     slug: "{{year}}-{{slug}}"
+    editor:
+      preview: false
     fields:
-      - {label: "Project Title", name: "title", widget: "string"}
+      - {label: "Project Title", name: "title", widget: "string", hint: "e.g., 'Wedding Film: The Andersons'"}
       - {label: "Category", name: "category", widget: "select", options: ["commercial", "narrative", "events", "music", "bts"]}
       - {label: "Type", name: "type", widget: "select", options: ["video", "image"], default: "video"}
-      - {label: "Video/Image Source", name: "src", widget: "string"}
-      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Tech Stack", name: "tech", widget: "list"}
-      - {label: "Year", name: "year", widget: "string", default: "2024"}
+      - {label: "Video/Image Source", name: "src", widget: "string", hint: "Vimeo: https://vimeo.com/123456 | YouTube: https://youtube.com/embed/ABC | Local: filename.mp4"}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false, hint: "Preview image (optional)"}
+      - {label: "Description", name: "description", widget: "text", hint: "1-2 sentences about this project"}
+      - {label: "Tech Stack", name: "tech", widget: "list", hint: "Add each tool separately"}
+      - {label: "Year", name: "year", widget: "string", default: "2025"}
+      - {label: "Contain Image", name: "containImage", widget: "boolean", required: false, default: false, hint: "For logos/graphics"}
+
+  # ========================================
+  # SITE SETTINGS
+  # ========================================
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      
+      # Contact Information
+      - label: "Contact Information"
+        name: "contact"
+        file: "_data/contact.json"
+        fields:
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
+          - {label: "Instagram URL", name: "instagram", widget: "string"}
+          - {label: "Vimeo URL", name: "vimeo", widget: "string"}
+          - {label: "Resume Link", name: "resume", widget: "string"}
+      
+      # Hero Section
+      - label: "Hero Section"
+        name: "hero"
+        file: "_data/hero.json"
+        fields:
+          - {label: "Name", name: "name", widget: "string"}
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Tagline", name: "tagline", widget: "text"}
+          - {label: "Headshot", name: "headshot", widget: "image", hint: "1:1 ratio, min 800x800px"}
+      
+      # About Section
+      - label: "About Section"
+        name: "about"
+        file: "_data/about.json"
+        fields:
+          - {label: "Background", name: "background", widget: "text", hint: "Your journey (2-3 sentences)"}
+          - {label: "Philosophy", name: "philosophy", widget: "text", hint: "Your creative vision (2-3 sentences)"}
+
+      # Skills
+      - label: "Skills"
+        name: "skills"
+        file: "_data/skills.json"
+        fields:
+          - label: "Skills List"
+            name: "skills"
+            widget: "list"
+            fields:
+              - {label: "Name", name: "title", widget: "string"}
+              - {label: "Icon", name: "icon", widget: "string", hint: "Font Awesome icon (e.g., fa-cut)"}
+              - {label: "Description", name: "description", widget: "text"}

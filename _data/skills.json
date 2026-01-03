@@ -1,0 +1,34 @@
+{
+    "skills": [
+        {
+            "title": "Video Editing",
+            "icon": "fa-cut",
+            "description": "Expert-level editing across Premiere Pro, Final Cut Pro, and DaVinci Resolve for narrative pacing and visual flow."
+        },
+        {
+            "title": "Color Grading",
+            "icon": "fa-palette",
+            "description": "Cinematic color correction and grading to establish mood, atmosphere, and visual consistency across every project."
+        },
+        {
+            "title": "Motion Graphics",
+            "icon": "fa-wand-magic-sparkles",
+            "description": "Creating dynamic titles, transitions, and effects in After Effects that elevate production value."
+        },
+        {
+            "title": "Sound Design",
+            "icon": "fa-microphone",
+            "description": "Professional audio mixing, dialogue editing, and sound effects integration for immersive experiences."
+        },
+        {
+            "title": "Cinematography",
+            "icon": "fa-camera",
+            "description": "Understanding camera work, lighting, and composition to capture stunning footage in any environment."
+        },
+        {
+            "title": "Complete Production",
+            "icon": "fa-film",
+            "description": "End-to-end project management from pre-production planning through final delivery and client collaboration."
+        }
+    ]
+}

@@ -4,19 +4,142 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow">
     <title>Portfolio Admin - Jovon King</title>
+
     <!-- Netlify Identity Widget (required for git-gateway authentication) -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <!-- Include the script that builds the page and powers Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-container {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(59, 130, 246, 0.1);
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #3b82f6;
+        }
+
+        p {
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        .setup-instructions {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .setup-instructions h2 {
+            color: #60a5fa;
+            margin-top: 0;
+        }
+
+        .setup-instructions ol {
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        .setup-instructions code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #60a5fa;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- A little help text in case JS is disabled -->
-    <noscript>
-        <h1>Jovon King Portfolio Admin</h1>
-        <p>Please enable JavaScript to access the admin panel.</p>
-    </noscript>
+    <!-- Loading indicator (shown while CMS loads) -->
+    <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <h1>Loading Admin Panel...</h1>
+        <p>Initializing Decap CMS</p>
+
+        <noscript>
+            <div class="setup-instructions">
+                <h2>⚠️ JavaScript Required</h2>
+                <p>Please enable JavaScript to access the admin panel.</p>
+            </div>
+        </noscript>
+
+        <!-- Setup instructions (shown if Netlify Identity not configured) -->
+        <div class="setup-instructions" id="setup-instructions" style="display: none;">
+            <h2>📝 First-Time Setup Required</h2>
+            <p style="margin-bottom: 1rem;">To enable the admin panel, follow these steps:</p>
+            <ol>
+                <li>Deploy this site to <strong>Netlify</strong> (drag the portfolio folder to Netlify Drop)</li>
+                <li>In Netlify dashboard, go to <code>Site Settings → Identity</code></li>
+                <li>Click <code>Enable Identity</code></li>
+                <li>Go to <code>Settings → Registration</code> → Set to <strong>Invite Only</strong></li>
+                <li>Go to <code>Services → Git Gateway</code> → Click <strong>Enable Git Gateway</strong></li>
+                <li>Go to <code>Identity → Invite Users</code> → Add the client's email</li>
+                <li>Client receives email → Clicks link → Sets password → Can access admin!</li>
+            </ol>
+            <p style="margin-top: 1rem; color: #60a5fa;">
+                Admin URL will be: <code>https://your-site.netlify.app/admin</code>
+            </p>
+        </div>
+    </div>
+
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <script>
+        // Check if Netlify Identity is loaded
+        if (window.netlifyIdentity) {
+            // Redirect to home page after authentication
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+
+        // Show setup instructions if CMS fails to load
+        setTimeout(() => {
+            const cmsRoot = document.querySelector('[class*="CMS"]');
+            if (!cmsRoot && window.location.hostname === 'localhost') {
+                document.getElementById('setup-instructions').style.display = 'block';
+                document.querySelector('.loading-spinner').style.display = 'none';
+            }
+        }, 3000);
+    </script>
 </body>
 
 </html>
