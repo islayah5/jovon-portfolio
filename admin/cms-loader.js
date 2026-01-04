@@ -57,48 +57,56 @@ class CMSDataLoader {
     updatePageContent(data) {
         const { contact, hero, about, skills } = data;
 
-        // Update contact email (appears 4 times)
+        // Update contact email
         if (contact?.email) {
-            document.querySelectorAll('a[href*="mailto"]').forEach(link => {
+            // Update mailto links
+            document.querySelectorAll('a[href^="mailto"]').forEach(link => {
                 link.href = `mailto:${contact.email}`;
             });
 
-            // Update text content where email is displayed
-            const emailElements = document.querySelectorAll('body');
-            emailElements.forEach(el => {
-                if (el.textContent.includes('jovon@example.com')) {
-                    el.innerHTML = el.innerHTML.replace(/jovon@example\.com/g, contact.email);
+            // Update footer button or text explicitly if needed
+            // (Assuming generic mailto replacement handles specific request buttons)
+
+            // Text replacement in body (for "jovon@example.com" text nodes)
+            // Using a TreeWalker is safer than innerHTML replacement on body
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+            while (walker.nextNode()) {
+                const node = walker.currentNode;
+                if (node.nodeValue.includes('jovon@example.com')) {
+                    node.nodeValue = node.nodeValue.replace(/jovon@example\.com/g, contact.email);
                 }
-            });
+            }
         }
 
-        // Update social links
+        // Update social links using IDs
         if (contact) {
-            if (contact.linkedin) {
-                const linkedinLink = document.querySelector('a[href*="linkedin"]');
-                if (linkedinLink) linkedinLink.href = contact.linkedin;
-            }
-            if (contact.instagram) {
-                const instagramLink = document.querySelector('a[href*="instagram"]');
-                if (instagramLink) instagramLink.href = contact.instagram;
-            }
-            if (contact.vimeo) {
-                const vimeoLink = document.querySelector('a[href*="vimeo"]');
-                if (vimeoLink) vimeoLink.href = contact.vimeo;
-            }
-            if (contact.resume) {
-                const resumeLink = document.querySelector('a[href="#"][target="_blank"]');
-                if (resumeLink && resumeLink.textContent.includes('Resume')) {
-                    resumeLink.href = contact.resume;
-                }
-            }
+            const setLink = (id, url) => {
+                const el = document.getElementById(id);
+                if (el && url) el.href = url;
+            };
+
+            setLink('social-linkedin', contact.linkedin);
+            setLink('social-instagram', contact.instagram);
+            setLink('social-vimeo', contact.vimeo);
+            setLink('hero-resume-btn', contact.resume);
         }
 
         // Update hero section
         if (hero) {
             if (hero.headshot) {
-                const headshotImg = document.querySelector('img[alt*="Jovon"]');
-                if (headshotImg) headshotImg.src = hero.headshot;
+                const headshotImg = document.getElementById('hero-headshot');
+                // Only set src if it's not empty/default to avoid 404 loop if json has bad path
+                // But here we trust the JSON has valid data or user edits it
+                if (headshotImg) {
+                    headshotImg.src = hero.headshot;
+                    // Handle load error to hide broken image
+                    headshotImg.onerror = () => {
+                        headshotImg.style.display = 'none';
+                    };
+                    headshotImg.onload = () => {
+                        headshotImg.style.display = 'block';
+                    }
+                }
             }
 
             if (hero.tagline) {
