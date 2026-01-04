@@ -99,7 +99,18 @@
     </nav>
 
     <!-- Hero Section -->
-    <header id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 relative pt-20">
+    <header id="home"
+        class="min-h-screen flex flex-col justify-center items-center text-center px-6 relative pt-20 overflow-hidden">
+
+        <!-- Hero Background Video Frame -->
+        <div class="absolute inset-0 z-[-2] w-full h-full bg-deep">
+            <!-- Overlay Gradient for Readability -->
+            <div class="absolute inset-0 bg-gradient-to-t from-deep via-deep/80 to-deep/40 z-10"></div>
+            <!-- Video Element (Dynamic) -->
+            <div id="hero-video-container" class="absolute inset-0 z-0 opacity-40 mix-blend-screen">
+                <!-- Video inserted by CMS Loader if available -->
+            </div>
+        </div>
 
         <!-- Animated Avatar Ring -->
         <div class="mb-10 relative group reveal">

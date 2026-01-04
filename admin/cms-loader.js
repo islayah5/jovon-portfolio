@@ -113,6 +113,32 @@ class CMSDataLoader {
                 const taglineElement = document.querySelector('header p.text-base');
                 if (taglineElement) taglineElement.textContent = hero.tagline;
             }
+
+            if (hero.backgroundVideo) {
+                const container = document.getElementById('hero-video-container');
+                if (container) {
+                    let video = container.querySelector('video');
+                    if (!video) {
+                        video = document.createElement('video');
+                        video.id = 'hero-bg-video';
+                        video.autoplay = true;
+                        video.loop = true;
+                        video.muted = true;
+                        video.playsInline = true;
+                        video.className = 'w-full h-full object-cover blur-[2px] scale-105 saturate-125';
+                        container.appendChild(video);
+                    }
+                    if (video.src !== hero.backgroundVideo && !hero.backgroundVideo.includes('undefined')) {
+                        video.src = hero.backgroundVideo;
+                    }
+                }
+            } else {
+                // Remove video if no longer in data
+                const videoElement = document.getElementById('hero-bg-video');
+                if (videoElement && videoElement.parentElement) {
+                    videoElement.parentElement.remove();
+                }
+            }
         }
 
         // Update about section
