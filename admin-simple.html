@@ -108,6 +108,22 @@
             font-size: 0.875rem;
         }
 
+        .notice-banner {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            color: #fcd34d;
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+        }
+
+        .notice-banner a {
+            color: #fbbf24;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
         /* Dashboard */
         .dashboard {
             display: none;
@@ -361,6 +377,10 @@
     <!-- Login Screen -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
+            <div class="notice-banner">
+                ⚠️ <strong>Note:</strong> This is the manual admin panel.<br>
+                For <strong>automatic GitHub updates</strong>, use the <a href="admin/">Advanced CMS</a>.
+            </div>
             <h1>🎬 Portfolio Admin</h1>
             <p>Enter password to manage portfolio content</p>
             <form id="loginForm">

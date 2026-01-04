@@ -111,14 +111,28 @@ class ScrollProgress {
 class GalleryController {
     constructor() {
         this.currentFilter = 'all';
-        this.projects = window.galleryProjects || [];
+        this.projects = [];
         this.init();
     }
 
-    init() {
+    async init() {
+        try {
+            const response = await fetch('_data/gallery.json');
+            if (response.ok) {
+                this.projects = await response.json();
+            } else {
+                console.warn('Could not load gallery.json, falling back to empty');
+            }
+        } catch (error) {
+            console.error('Error loading gallery projects:', error);
+        }
+
         this.renderFilters();
         this.renderGallery();
         this.setupFilterListeners();
+
+        // Dispatch event for LightboxManager to know data is ready
+        window.dispatchEvent(new CustomEvent('galleryReady', { detail: { projects: this.projects } }));
     }
 
     renderFilters() {
@@ -126,8 +140,16 @@ class GalleryController {
         if (!filtersContainer) return;
 
         const categories = window.categories || [
-            { id: 'all', label: 'All Work', icon: 'fa-grid' }
+            { id: 'all', label: 'All Work', icon: 'fa-grid' },
+            { id: 'commercial', label: 'Commercial', icon: 'fa-briefcase' },
+            { id: 'narrative', label: 'Narrative', icon: 'fa-film' },
+            { id: 'events', label: 'Events', icon: 'fa-champagne-glasses' },
+            { id: 'music', label: 'Music Videos', icon: 'fa-music' },
+            { id: 'bts', label: 'Behind The Scenes', icon: 'fa-camera' }
         ];
+
+        // Make categories available globally just in case
+        window.categories = categories;
 
         filtersContainer.innerHTML = categories.map(cat => {
             const count = cat.id === 'all'
@@ -228,8 +250,8 @@ class GalleryController {
 class LightboxManager {
     constructor() {
         this.currentIndex = 0;
-        this.projects = window.galleryProjects || [];
-        this.filteredProjects = [...this.projects];
+        this.projects = [];
+        this.filteredProjects = [];
         this.lightbox = document.getElementById('lightbox');
 
         if (this.lightbox) {
@@ -238,6 +260,12 @@ class LightboxManager {
     }
 
     init() {
+        // Listen for data from GalleryController
+        window.addEventListener('galleryReady', (e) => {
+            this.projects = e.detail.projects;
+            this.filteredProjects = [...this.projects];
+        });
+
         this.setupGalleryListeners();
         this.setupNavigationListeners();
         this.setupKeyboardListeners();

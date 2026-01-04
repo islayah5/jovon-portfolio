@@ -1,30 +1,830 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow">
-    <title>Portfolio Admin - Jovon King</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Admin - Direct Access</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .login-box {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            max-width: 450px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-box h1 {
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+            font-size: 1.75rem;
+        }
+
+        .login-box p {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            color: #f1f5f9;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: #3b82f6;
+        }
+
+        .logout-btn {
+            padding: 0.5rem 1.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .tab.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .card h2 {
+            color: #60a5fa;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-card {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .project-card h3 {
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .project-card .category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #60a5fa;
+            margin-bottom: 1rem;
+        }
+
+        .project-card .actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-small {
+            flex: 1;
+            padding: 0.5rem;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .btn-small.delete {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+
+        .add-project-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            color: #3b82f6;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 0.75rem;
+            background: rgba(100, 116, 139, 0.2);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            color: #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            color: #f1f5f9;
+            font-size: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            color: #f1f5f9;
+            font-size: 1rem;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .hint {
+            color: #64748b;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .success-message {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #86efac;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            display: none;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Decap CMS loads here -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <div class="loading-overlay" id="globalLoader">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <h1>🔐 Admin Access</h1>
+            <p>Enter your GitHub Personal Access Token to manage site content.</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="password">Token (Password)</label>
+                    <input type="password" id="password" placeholder="ghp_..." required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div id="loginError"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <div class="header">
+            <h1>Portfolio Dashboard</h1>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <div id="successMessage"></div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="projects">Gallery Projects</button>
+            <button class="tab" data-tab="contact">Contact Info</button>
+            <button class="tab" data-tab="about">About Section</button>
+            <button class="tab" data-tab="hero">Hero Section</button>
+        </div>
+
+        <!-- Projects Tab -->
+        <div class="tab-content active" id="projectsTab">
+            <button class="add-project-btn" onclick="openProjectModal()">+ Add New Project</button>
+            <div class="projects-grid" id="projectsGrid"></div>
+        </div>
+
+        <!-- Contact Tab -->
+        <div class="tab-content" id="contactTab">
+            <div class="card">
+                <h2>Contact Information</h2>
+                <form id="contactForm">
+                    <!-- Fields will be generated -->
+                    <div id="contactFields"></div>
+                    <button type="submit" class="btn">Save to GitHub</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- About Tab -->
+        <div class="tab-content" id="aboutTab">
+            <div class="card">
+                <h2>About Section</h2>
+                <form id="aboutForm">
+                    <!-- Fields will be generated -->
+                    <div id="aboutFields"></div>
+                    <button type="submit" class="btn">Save to GitHub</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Hero Tab -->
+        <div class="tab-content" id="heroTab">
+            <div class="card">
+                <h2>Hero Section</h2>
+                <form id="heroForm">
+                    <!-- Fields will be generated -->
+                    <div id="heroFields"></div>
+                    <button type="submit" class="btn">Save to GitHub</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Project</h2>
+                <button class="close-modal" onclick="closeProjectModal()">×</button>
+            </div>
+            <form id="projectForm">
+                <input type="hidden" id="projectId">
+                <div class="form-group">
+                    <label>Project Title</label>
+                    <input type="text" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" required>
+                        <option value="commercial">Commercial</option>
+                        <option value="narrative">Narrative</option>
+                        <option value="events">Events</option>
+                        <option value="music">Music Videos</option>
+                        <option value="bts">Behind The Scenes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <select name="type" required>
+                        <option value="video">Video</option>
+                        <option value="image">Image</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Video/Image Source</label>
+                    <input type="text" name="src" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Tech Stack (comma separated)</label>
+                    <input type="text" name="tech">
+                </div>
+                <div class="form-group">
+                    <label>Year</label>
+                    <input type="text" name="year" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeProjectModal()">Cancel</button>
+                    <button type="submit" class="btn">Save Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
-        // Redirect after login
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/admin/";
-                    });
+        // =======================================
+        // GITHUB API CONFIGURATION
+        // =======================================
+        const REPO_OWNER = 'islayah5';
+        const REPO_NAME = 'jovon-portfolio';
+        let GITHUB_TOKEN = '';
+
+        // =======================================
+        // DATA STORAGE
+        // =======================================
+        let galleryProjects = [];
+        let contactData = {};
+        let aboutData = {};
+        let heroData = {};
+        let fileShas = {}; // Store SHAs for updates
+        let currentEditingId = null;
+
+        // =======================================
+        // AUTHENTICATION & INITIALIZATION
+        // =======================================
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const token = document.getElementById('password').value;
+            showLoading(true);
+
+            try {
+                // Verify Token by fetching user
+                const response = await fetch('https://api.github.com/user', {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+
+                if (response.ok) {
+                    GITHUB_TOKEN = token;
+                    localStorage.setItem('portfolio_admin_token', token);
+                    document.getElementById('loginScreen').style.display = 'none';
+                    document.getElementById('dashboard').classList.add('active');
+                    await loadAllData();
+                } else {
+                    document.getElementById('loginError').innerHTML = '<div class="error">❌ Invalid Token</div>';
                 }
+            } catch (err) {
+                document.getElementById('loginError').innerHTML = `<div class="error">❌ Error: ${err.message}</div>`;
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        // Check for saved token
+        if (localStorage.getItem('portfolio_admin_token')) {
+            GITHUB_TOKEN = localStorage.getItem('portfolio_admin_token');
+            // Auto login verification omitted for speed, will fail on first request if invalid
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            loadAllData();
+        }
+
+        function logout() {
+            localStorage.removeItem('portfolio_admin_token');
+            location.reload();
+        }
+
+        // =======================================
+        // GITHUB API HELPERS
+        // =======================================
+        async function fetchFile(path) {
+            try {
+                const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+
+                if (!response.ok) throw new Error(`Failed to fetch ${path}`);
+
+                const data = await response.json();
+                fileShas[path] = data.sha;
+
+                const content = atob(data.content); // Decode Base64
+                return JSON.parse(content);
+            } catch (error) {
+                console.warn(`Could not load ${path}, returning default/empty`);
+                return null;
+            }
+        }
+
+        async function saveFile(path, content, message) {
+            showLoading(true);
+            try {
+                const encodedContent = btoa(JSON.stringify(content, null, 4)); // Encode Base64
+                const body = {
+                    message: message,
+                    content: encodedContent,
+                    sha: fileShas[path] // Include SHA if updating
+                };
+
+                const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message);
+                }
+
+                // Update SHA for next save
+                const data = await response.json();
+                fileShas[path] = data.content.sha;
+
+                showSuccess(`Saved ${path} successfully!`);
+            } catch (error) {
+                alert(`Error saving file: ${error.message}`);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // =======================================
+        // LOAD DATA
+        // =======================================
+        async function loadAllData() {
+            showLoading(true);
+
+            // PROJECTS: Load from gallery-data.js logic (simulated by reading current JSONs or just one file)
+            // Wait, gallery-data.js is JS not JSON. It's harder to parse.
+            // Better to load from _data/projects.json (if we migrate to that) OR
+            // Parse gallery-data.js text.
+
+            // SIMPLIFICATION: We will read/write to a `_data/projects.json` file now, and update `script.js` to read that instead of `gallery-data.js`.
+            // OR we stick to the plan: Read `_projects` markdown? No, that's Decap CMS specific.
+            // Let's use `_data/gallery.json` as the source of truth for THIS dashboard.
+            // And we will trigger the build.
+
+
+            // 1. Data Files
+            contactData = await fetchFile('_data/contact.json') || {};
+            aboutData = await fetchFile('_data/about.json') || {};
+            heroData = await fetchFile('_data/hero.json') || {};
+
+            // 2. Projects
+            // We will attempt to load `_data/gallery.json`. If it fails, we fall back to empty.
+            // NOTE: We need to migrate existing JS data to this JSON file once.
+            galleryProjects = await fetchFile('_data/gallery.json') || [];
+
+            renderForms();
+            renderProjects();
+            showLoading(false);
+        }
+
+        function renderForms() {
+            // Contact Form
+            document.getElementById('contactFields').innerHTML =
+                generateInputs(contactData, ['email', 'linkedin', 'instagram', 'vimeo', 'resume']);
+
+            // About Form
+            document.getElementById('aboutFields').innerHTML =
+                generateInputs(aboutData, [['background', 'textarea'], ['philosophy', 'textarea']]);
+
+            // Hero Form
+            document.getElementById('heroFields').innerHTML =
+                generateInputs(heroData, ['name', 'title', ['tagline', 'textarea'], 'headshot']);
+        }
+
+        function generateInputs(data, fields) {
+            return fields.map(field => {
+                const name = Array.isArray(field) ? field[0] : field;
+                const type = Array.isArray(field) ? field[1] : 'text';
+                const value = data[name] || '';
+
+                if (type === 'textarea') {
+                    return `<div class="form-group"><label>${name.toUpperCase()}</label><textarea name="${name}" rows="4">${value}</textarea></div>`;
+                }
+                return `<div class="form-group"><label>${name.toUpperCase()}</label><input type="text" name="${name}" value="${value}"></div>`;
+            }).join('');
+        }
+
+        // =======================================
+        // TAB SWITCHING
+        // =======================================
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.getAttribute('data-tab') + 'Tab').classList.add('active');
             });
+        });
+
+        // =======================================
+        // FORM SUBMISSIONS (SAVE TO GITHUB)
+        // =======================================
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            saveFile('_data/contact.json', data, 'Update contact info via Admin');
+        });
+
+        document.getElementById('aboutForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            saveFile('_data/about.json', data, 'Update about section via Admin');
+        });
+
+        document.getElementById('heroForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            saveFile('_data/hero.json', data, 'Update hero section via Admin');
+        });
+
+        // =======================================
+        // PROJECT MANAGEMENT
+        // =======================================
+        function renderProjects() {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = galleryProjects.map(p => `
+                <div class="project-card">
+                    <h3>${p.title}</h3>
+                    <div class="actions">
+                        <button class="btn-small" onclick="editProject(${p.id})">Edit</button>
+                        <button class="btn-small delete" onclick="deleteProject(${p.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Expose to window for inline onclicks
+        window.editProject = (id) => {
+            currentEditingId = id;
+            const p = galleryProjects.find(i => i.id === id);
+            const form = document.getElementById('projectForm');
+
+            // Populate form
+            form.title.value = p.title;
+            form.category.value = p.category;
+            form.type.value = p.type;
+            form.src.value = p.src;
+            form.description.value = p.description;
+            form.tech.value = p.tech ? p.tech.join(', ') : '';
+            form.year.value = p.year;
+
+            document.getElementById('modalTitle').textContent = 'Edit Project';
+            document.getElementById('projectModal').classList.add('active');
+        };
+
+        window.closeProjectModal = () => {
+            document.getElementById('projectModal').classList.remove('active');
+            document.getElementById('projectForm').reset();
+            currentEditingId = null;
+        };
+
+        window.openProjectModal = () => {
+            window.closeProjectModal(); // reset
+            document.getElementById('modalTitle').textContent = 'Add Project';
+            document.getElementById('projectModal').classList.add('active');
+        }
+
+        window.deleteProject = (id) => {
+            if (confirm('Delete this project?')) {
+                galleryProjects = galleryProjects.filter(p => p.id !== id);
+                renderProjects();
+                saveFile('_data/gallery.json', galleryProjects, 'Delete project');
+            }
+        };
+
+        document.getElementById('projectForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const newProject = {
+                id: currentEditingId || Date.now(),
+                title: formData.get('title'),
+                category: formData.get('category'),
+                type: formData.get('type'),
+                src: formData.get('src'),
+                description: formData.get('description'),
+                tech: formData.get('tech').split(',').map(s => s.trim()),
+                year: formData.get('year')
+            };
+
+            if (currentEditingId) {
+                const idx = galleryProjects.findIndex(p => p.id === currentEditingId);
+                galleryProjects[idx] = newProject;
+            } else {
+                galleryProjects.push(newProject);
+            }
+
+            renderProjects();
+            window.closeProjectModal();
+            saveFile('_data/gallery.json', galleryProjects, 'Update projects via Admin');
+        });
+
+        // =======================================
+        // UTILS
+        // =======================================
+        function showLoading(show) {
+            document.getElementById('globalLoader').style.display = show ? 'flex' : 'none';
+        }
+
+        function showSuccess(message) {
+            const div = document.getElementById('successMessage');
+            div.innerHTML = `<div class="success-message">✅ ${message}</div>`;
+            setTimeout(() => div.innerHTML = '', 4000);
         }
     </script>
 </body>

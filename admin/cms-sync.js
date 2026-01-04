@@ -15,14 +15,14 @@ const PROJECTS_DIR = path.join(__dirname, '../_projects');
 const GALLERY_DATA_FILE = path.join(__dirname, '../gallery-data.js');
 
 /**
- * Read all project JSON files from _projects folder
+ * Read all project Markdown files from _projects folder
  */
 function readAllProjects() {
-    const files = fs.readdirSync(PROJECTS_DIR).filter(f => f.endsWith('.json'));
+    const files = fs.readdirSync(PROJECTS_DIR).filter(f => f.endsWith('.md'));
 
     const projects = files.map((file, index) => {
         const content = fs.readFileSync(path.join(PROJECTS_DIR, file), 'utf8');
-        const project = JSON.parse(content);
+        const project = parseFrontmatter(content);
 
         // Ensure project has an ID (use index + 1)
         return {
@@ -33,6 +33,41 @@ function readAllProjects() {
 
     // Sort by year (newest first)
     return projects.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+}
+
+/**
+ * Simple YAML frontmatter parser
+ */
+function parseFrontmatter(content) {
+    const match = content.match(/^---\n([\s\S]*?)\n---/);
+    if (!match) return {};
+
+    const yaml = match[1];
+    const data = {};
+
+    yaml.split('\n').forEach(line => {
+        const colonIndex = line.indexOf(':');
+        if (colonIndex > 0) {
+            const key = line.substring(0, colonIndex).trim();
+            let value = line.substring(colonIndex + 1).trim();
+
+            // Remove quotes
+            if (value.startsWith('"') && value.endsWith('"')) {
+                value = value.slice(1, -1);
+            }
+
+            // Handle arrays (tech stack)
+            if (key === 'tech' || value.startsWith('-')) {
+                if (!data.tech) data.tech = [];
+            } else if (data.tech && line.trim().startsWith('-')) {
+                data.tech.push(line.trim().substring(1).trim());
+            } else {
+                data[key] = value;
+            }
+        }
+    });
+
+    return data;
 }
 
 /**

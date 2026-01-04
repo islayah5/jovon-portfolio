@@ -1,6 +1,10 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: "islayah5/jovon-portfolio"
   branch: main
+  site_domain: "islayah5.github.io"
+  base_url: "https://api.netlify.com"
+  auth_endpoint: "auth"
 
 # Media files uploaded through CMS
 media_folder: "assets/images"
