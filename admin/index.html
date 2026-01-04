@@ -419,6 +419,7 @@
             <button class="tab" data-tab="contact">Contact Info</button>
             <button class="tab" data-tab="about">About Section</button>
             <button class="tab" data-tab="hero">Hero Section</button>
+            <button class="tab" data-tab="skills">Toolkit (Skills)</button>
         </div>
 
         <!-- Projects Tab -->
@@ -518,6 +519,36 @@
         </div>
     </div>
 
+    <!-- Skill Modal -->
+    <div class="modal" id="skillModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="skillModalTitle">Add Skill</h2>
+                <button class="close-modal" onclick="closeSkillModal()">×</button>
+            </div>
+            <form id="skillForm">
+                <input type="hidden" id="skillIndex">
+                <div class="form-group">
+                    <label>Skill Title</label>
+                    <input type="text" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label>Icon Class (Font Awesome)</label>
+                    <input type="text" name="icon" placeholder="fa-film" required>
+                    <p class="hint">Use FontAwesome classes like fa-film, fa-camera, etc.</p>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" rows="3" required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeSkillModal()">Cancel</button>
+                    <button type="submit" class="btn">Save Skill</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         // =======================================
         // GITHUB API CONFIGURATION
@@ -533,6 +564,7 @@
         let contactData = {};
         let aboutData = {};
         let heroData = {};
+        let skillsData = { skills: [] };
         let fileShas = {}; // Store SHAs for updates
         let currentEditingId = null;
 
@@ -659,6 +691,7 @@
             contactData = await fetchFile('_data/contact.json') || {};
             aboutData = await fetchFile('_data/about.json') || {};
             heroData = await fetchFile('_data/hero.json') || {};
+            skillsData = await fetchFile('_data/skills.json') || { skills: [] };
 
             // 2. Projects
             // We will attempt to load `_data/gallery.json`. If it fails, we fall back to empty.
@@ -667,6 +700,7 @@
 
             renderForms();
             renderProjects();
+            renderSkills();
             showLoading(false);
         }
 
@@ -798,21 +832,96 @@
                 type: formData.get('type'),
                 src: formData.get('src'),
                 description: formData.get('description'),
-                tech: formData.get('tech').split(',').map(s => s.trim()),
+                tech: formData.get('tech') ? formData.get('tech').split(',').map(s => s.trim()) : [],
                 year: formData.get('year')
             };
 
             if (currentEditingId) {
-                const idx = galleryProjects.findIndex(p => p.id === currentEditingId);
-                galleryProjects[idx] = newProject;
+                const index = galleryProjects.findIndex(p => p.id === currentEditingId);
+                if (index !== -1) galleryProjects[index] = newProject;
             } else {
                 galleryProjects.push(newProject);
             }
 
             renderProjects();
-            window.closeProjectModal();
-            saveFile('_data/gallery.json', galleryProjects, 'Update projects via Admin');
+            saveFile('_data/gallery.json', galleryProjects, 'Update projects');
+            closeProjectModal();
         });
+
+        // =======================================
+        // SKILLS MANAGEMENT
+        // =======================================
+        function renderSkills() {
+            const grid = document.getElementById('skillsGrid');
+            if (!skillsData.skills) skillsData.skills = [];
+
+            grid.innerHTML = skillsData.skills.map((s, index) => `
+                <div class="project-card">
+                    <h3><i class="fas ${s.icon}"></i> ${s.title}</h3>
+                    <p class="hint">${s.description}</p>
+                    <div class="actions">
+                        <button class="btn-small" onclick="editSkill(${index})">Edit</button>
+                        <button class="btn-small delete" onclick="deleteSkill(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.editSkill = (index) => {
+            const s = skillsData.skills[index];
+            const form = document.getElementById('skillForm');
+
+            document.getElementById('skillIndex').value = index;
+            form.title.value = s.title;
+            form.icon.value = s.icon;
+            form.description.value = s.description;
+
+            document.getElementById('skillModalTitle').textContent = 'Edit Skill';
+            document.getElementById('skillModal').classList.add('active');
+        };
+
+        window.closeSkillModal = () => {
+            document.getElementById('skillModal').classList.remove('active');
+            document.getElementById('skillForm').reset();
+            document.getElementById('skillIndex').value = '';
+        };
+
+        window.openSkillModal = () => {
+            window.closeSkillModal();
+            document.getElementById('skillModalTitle').textContent = 'Add Skill';
+            document.getElementById('skillModal').classList.add('active');
+        };
+
+        window.deleteSkill = (index) => {
+            if (confirm('Delete this skill?')) {
+                skillsData.skills.splice(index, 1);
+                renderSkills();
+                saveFile('_data/skills.json', skillsData, 'Delete skill');
+            }
+        };
+
+        document.getElementById('skillForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const indexStr = document.getElementById('skillIndex').value;
+
+            const newSkill = {
+                title: formData.get('title'),
+                icon: formData.get('icon'),
+                description: formData.get('description')
+            };
+
+            if (indexStr !== '') {
+                skillsData.skills[parseInt(indexStr)] = newSkill;
+            } else {
+                skillsData.skills.push(newSkill);
+            }
+
+            renderSkills();
+            saveFile('_data/skills.json', skillsData, 'Update skills');
+            closeSkillModal();
+        });
+
 
         // =======================================
         // UTILS

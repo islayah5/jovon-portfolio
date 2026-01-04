@@ -157,6 +157,11 @@ class CMSDataLoader {
                 <p class="text-muted text-sm leading-relaxed">${skill.description}</p>
             `;
             cardsContainer.appendChild(card);
+
+            // Re-observe for animation
+            if (window.revealObserver) {
+                window.revealObserver.observe(card);
+            }
         });
 
         console.log(`✅ Updated ${skillsData.length} skills`);
