@@ -8,5 +8,15 @@
         "description": "test",
         "tech": [],
         "year": "2025"
+    },
+    {
+        "id": 1767646094650,
+        "title": "test 2",
+        "category": "commercial",
+        "type": "video",
+        "src": "https://islayah5.github.io/jovon-portfolio/Soul-Media-Logo-FINAL%20no%20bg.png",
+        "description": "test 2",
+        "tech": [],
+        "year": "2026"
     }
 ]
